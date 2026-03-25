@@ -1,18 +1,16 @@
-// src/components/Stage/Visualization.jsx
 import React, { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import $ from 'jquery';
 
 const BAR_COLOR = {
-  default:  'rgba(255, 255, 255, 0.08)',
-  compare:  '#D946EF',
-  swap:     '#6366F1',
-  sorted:   '#34D399',
+  default:  'rgba(99, 102, 241, 0.38)',
+  compare:  'rgba(149, 160, 255, 0.95)',
+  swap:     'rgba(217, 70, 239, 0.9)',
+  sorted:   'rgba(52, 211, 153, 0.6)',
 };
 
-const Visualization = forwardRef(({ arraySize = 60 }, ref) => {
+const Visualization = forwardRef(({ arraySize = 64 }, ref) => {
   const containerRef = useRef(null);
 
-  // Initialize DOM once
   useEffect(() => {
     const $container = $(containerRef.current);
     $container.empty();
@@ -20,43 +18,39 @@ const Visualization = forwardRef(({ arraySize = 60 }, ref) => {
     for (let i = 0; i < arraySize; i++) {
       $('<div>')
         .addClass('bar')
-        .attr('data-index', i)
         .css({
-          position:  'absolute',
-          bottom:    0,
-          left:      0,
-          width:     `calc(100% / ${arraySize} - 2px)`,
+          flex: 1,
+          height: '0%',
           background: BAR_COLOR.default,
-          borderRadius: '4px 4px 0 0',
-          transform: `translateX(calc(${i} * 100% + ${i * 2}px))`,
-          transition: 'background 80ms ease, height 120ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-          willChange: 'transform, height, background',
+          borderRadius: '2px 2px 0 0',
+          transition: 'height .04s linear, background .06s linear',
+          minWidth: '2px',
+          margin: '0 0.75px'
         })
         .appendTo($container);
     }
-
-    return () => $container.empty();
   }, [arraySize]);
 
   useImperativeHandle(ref, () => ({
     applySnapshot(snapshot) {
       const { array, activeIndices, operationType } = snapshot;
-      const $container = $(containerRef.current);
-      const $bars = $container.find('.bar');
+      const $bars = $(containerRef.current).find('.bar');
       const max = Math.max(...array);
 
       $bars.each(function (i) {
-        const val = array[i];
-        const heightPct = (val / max) * 100;
+        const heightPct = Math.round((array[i] / max) * 90);
         let color = BAR_COLOR.default;
+        let shadow = 'none';
 
         if (activeIndices.includes(i)) {
           color = BAR_COLOR[operationType] ?? BAR_COLOR.default;
+          shadow = operationType === 'swap' ? '0 0 10px rgba(217,70,239,.7)' : '0 0 8px rgba(99,102,241,.6)';
         }
 
         $(this).css({
           height: `${heightPct}%`,
           background: color,
+          boxShadow: shadow
         });
       });
     },
@@ -64,10 +58,10 @@ const Visualization = forwardRef(({ arraySize = 60 }, ref) => {
        const $bars = $(containerRef.current).find('.bar');
        const max = Math.max(...initialArray);
        $bars.each(function(i) {
-         const heightPct = (initialArray[i] / max) * 100;
          $(this).css({
-           height: `${heightPct}%`,
-           background: BAR_COLOR.default
+           height: `${Math.round((initialArray[i] / max) * 90)}%`,
+           background: BAR_COLOR.default,
+           boxShadow: 'none'
          });
        });
     }
@@ -76,14 +70,8 @@ const Visualization = forwardRef(({ arraySize = 60 }, ref) => {
   return (
     <div
       ref={containerRef}
-      className="visualization-stage"
-      style={{
-        position: 'relative',
-        width:    '100%',
-        height:   '100%',
-        overflow: 'hidden',
-        padding: '0 10px'
-      }}
+      className="d-flex align-items-flex-end h-100 w-100"
+      style={{ alignItems: 'flex-end' }}
     />
   );
 });
