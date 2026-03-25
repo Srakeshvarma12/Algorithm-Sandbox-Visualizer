@@ -1,0 +1,116 @@
+/* Liquid Button */
+.btn-liquid {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  background: var(--liquid-base);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    background var(--duration-normal) var(--ease-smooth),
+    border-color var(--duration-normal) var(--ease-smooth),
+    box-shadow var(--duration-normal) var(--ease-smooth),
+    transform var(--duration-fast) var(--ease-spring);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  outline: none;
+  user-select: none;
+}
+
+.btn-liquid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  transition: background-position 0.5s var(--ease-smooth);
+}
+
+.btn-liquid:hover {
+  background: var(--liquid-hover);
+  border-color: rgba(99, 102, 241, 0.6);
+  box-shadow: var(--liquid-glow);
+  transform: translateY(-1px);
+}
+
+.btn-liquid:hover::before {
+  background-position: -200% 0;
+}
+
+.btn-liquid:active {
+  background: var(--liquid-active);
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.3);
+  transition-duration: 80ms;
+}
+
+.btn-liquid.btn-primary {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+}
+
+.btn-liquid.btn-primary:hover {
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.5),
+              0 0 80px rgba(217, 70, 239, 0.2);
+  transform: translateY(-2px);
+}
+
+.btn-liquid.btn-danger {
+  border-color: rgba(248, 113, 113, 0.3);
+  background: rgba(248, 113, 113, 0.1);
+}
+.btn-liquid.btn-danger:hover {
+  background: rgba(248, 113, 113, 0.2);
+  border-color: rgba(248, 113, 113, 0.6);
+  box-shadow: 0 0 20px rgba(248, 113, 113, 0.3);
+}
+
+/* Glass Card */
+.glass-card {
+  background: var(--glass-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.05) inset,
+    0 -1px 0 rgba(0,0,0,0.2) inset,
+    0 8px 32px rgba(0,0,0,0.4);
+  transition: transform var(--duration-normal) var(--ease-smooth), box-shadow var(--duration-normal) var(--ease-smooth);
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, .display {
+  font-family: "SF Pro Display", system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Status Badge Overrides */
+.badge-chronos {
+  background: var(--glass-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  backdrop-filter: var(--blur-glass);
+}
