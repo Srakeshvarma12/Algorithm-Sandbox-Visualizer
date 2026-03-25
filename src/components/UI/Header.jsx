@@ -2,8 +2,15 @@ import React from 'react';
 import { useChronosStore } from '../../store/useChronosStore';
 
 export default function Header() {
-  const { status } = useChronosStore();
+  const { status, activeTab, setActiveTab } = useChronosStore();
   
+  const tabs = [
+    { id: 'visualizer', label: 'Visualizer' },
+    { id: 'sandbox', label: 'Sandbox' },
+    { id: 'performance', label: 'Performance' },
+    { id: 'docs', label: 'Docs' }
+  ];
+
   return (
     <header className="hdr">
       <div className="logo d-flex align-items-center gap-2">
@@ -15,10 +22,15 @@ export default function Header() {
       </div>
       
       <div className="hdr-center d-flex gap-2">
-        <div className="nav-pill on">Visualizer</div>
-        <div className="nav-pill">Sandbox</div>
-        <div className="nav-pill">Performance</div>
-        <div className="nav-pill">Docs</div>
+        {tabs.map(tab => (
+          <div 
+            key={tab.id}
+            className={`nav-pill ${activeTab === tab.id ? 'on' : ''}`}
+            onClick={() => setActiveTab(tab.id)}
+          >
+            {tab.label}
+          </div>
+        ))}
       </div>
       
       <div className="hdr-right d-flex align-items-center gap-3">

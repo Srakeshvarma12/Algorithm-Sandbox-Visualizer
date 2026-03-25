@@ -2,8 +2,11 @@ import { create } from 'zustand';
 import { ALGORITHMS } from '../constants';
 
 export const useChronosStore = create((set) => ({
-  // Array state
-  array:         [],
+  // Navigation
+  activeTab:     'visualizer',
+  setActiveTab:  (tab)       => set({ activeTab: tab }),
+
+  // Playsback state
   arraySize:     64,
   setArray:      (array)     => set({ array }),
   setArraySize:  (arraySize) => set({ arraySize }),
