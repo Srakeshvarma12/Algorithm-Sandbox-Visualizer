@@ -1,6 +1,6 @@
 # Chronos: High-Frequency Algorithm Sandbox & Visualizer ⚡
 
-[![Chronos Preview](./images/chronos-img.png.png)](https://github.com/Srakeshvarma12/Algorithm-Sandbox-Visualizer)
+[![Chronos Preview](./images/chronos-img.png)](https://github.com/Srakeshvarma12/Algorithm-Sandbox-Visualizer)
 
 **Chronos** is a high-performance, Apple-inspired algorithm visualization platform designed for real-time analysis and sandbox experimentation. Built with a focus on buttery-smooth execution and premium aesthetics, Chronos bridges the gap between educational tools and professional development environments.
 
@@ -60,5 +60,3 @@ The Sandbox exposes a simple yet powerful API to the user's custom code:
 ## 📜 License
 Distributed under the MIT License. See `LICENSE` for more information.
 
----
-Created with ❤️ by Antigravity x Srakeshvarma
